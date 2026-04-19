@@ -10,10 +10,24 @@ export interface IssueTestData {
   actual: string;
 }
 
+export const issueSingleData: IssueTestData[] = [
+  {
+    id: "issue-005",
+    linkedPlaywrightTest: "GET response contains issues summary",
+    title: `Issue Single Test Data ${Date.now()}`,
+    description: "Issue Single Test Data",
+    severity: "High",
+    areaModule: "Test",
+    reproSteps: "Test",
+    expected: "Test",
+    actual: "Test",
+  },
+];
+
 export const issues: IssueTestData[] = [
   {
     id: "issue-001",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Login button unresponsive on Safari",
     description: "The login button does not respond to clicks on Safari 17",
     severity: "High",
@@ -24,7 +38,7 @@ export const issues: IssueTestData[] = [
   },
   {
     id: "issue-002",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Dashboard crashes on empty data",
     description: "Dashboard throws a white screen when the user has no issues logged",
     severity: "Critical",
@@ -35,7 +49,7 @@ export const issues: IssueTestData[] = [
   },
   {
     id: "issue-003",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Search input not debounced",
     description: "Typing quickly in the search box fires too many API requests",
     severity: "Medium",
@@ -46,7 +60,7 @@ export const issues: IssueTestData[] = [
   },
   {
     id: "issue-004",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Severity badge missing on imported issues",
     description: "Issues imported from markdown do not display a severity badge in the card",
     severity: "Low",
@@ -57,7 +71,7 @@ export const issues: IssueTestData[] = [
   },
   {
     id: "issue-005",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Tooltip missing on draggable button",
     description: "The floating QA button has no tooltip explaining what it does",
     severity: "Info",
@@ -71,7 +85,7 @@ export const issues: IssueTestData[] = [
 export const issuesMissingDescription: IssueTestData[] = [
   {
     id: "issue-001",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Login button unresponsive on Safari",
     severity: "High",
     areaModule: "auth",
@@ -81,7 +95,7 @@ export const issuesMissingDescription: IssueTestData[] = [
   },
   {
     id: "issue-002",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Dashboard crashes on empty data",
     severity: "Critical",
     areaModule: "dashboard",
@@ -91,7 +105,7 @@ export const issuesMissingDescription: IssueTestData[] = [
   },
   {
     id: "issue-003",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Search input not debounced",
     severity: "Medium",
     areaModule: "search",
@@ -101,7 +115,7 @@ export const issuesMissingDescription: IssueTestData[] = [
   },
   {
     id: "issue-004",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Severity badge missing on imported issues",
     severity: "Low",
     areaModule: "import",
@@ -111,7 +125,7 @@ export const issuesMissingDescription: IssueTestData[] = [
   },
   {
     id: "issue-005",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     title: "Tooltip missing on draggable button",
     severity: "Info",
     areaModule: "ui",
@@ -124,7 +138,7 @@ export const issuesMissingDescription: IssueTestData[] = [
 export const issuesMissingTitle: IssueTestData[] = [
   {
     id: "issue-001",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     description: "The login button does not respond to clicks on Safari 17",
     severity: "High",
     areaModule: "auth",
@@ -134,7 +148,7 @@ export const issuesMissingTitle: IssueTestData[] = [
   },
   {
     id: "issue-002",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     description: "Dashboard throws a white screen when the user has no issues logged",
     severity: "Critical",
     areaModule: "dashboard",
@@ -144,7 +158,7 @@ export const issuesMissingTitle: IssueTestData[] = [
   },
   {
     id: "issue-003",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     description: "Typing quickly in the search box fires too many API requests",
     severity: "Medium",
     areaModule: "search",
@@ -154,7 +168,7 @@ export const issuesMissingTitle: IssueTestData[] = [
   },
   {
     id: "issue-004",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     description: "Issues imported from markdown do not display a severity badge in the card",
     severity: "Low",
     areaModule: "import",
@@ -164,7 +178,7 @@ export const issuesMissingTitle: IssueTestData[] = [
   },
   {
     id: "issue-005",
-    linkedPlaywrightTest: "QA Button and Neko are Visible",
+    linkedPlaywrightTest: "GET response contains issues summary",
     description: "The floating QA button has no tooltip explaining what it does",
     severity: "Info",
     areaModule: "ui",

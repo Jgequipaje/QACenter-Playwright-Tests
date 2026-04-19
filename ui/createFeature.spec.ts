@@ -11,26 +11,22 @@ test.describe("@CreateFunctions @AddFeature Create Feature", () => {
     poManager = new POManager(page);
     qaDrawer = poManager.getQADrawerPage();
     newFormPage = poManager.getNewFormPage();
+    await qaDrawer.goToQADrawer();
   });
 
   for (const feature of features) {
-    test(`Can Add ${feature.name}`, async () => {
-      await qaDrawer.goToQADrawer();
+    test(`Should appear under Features tab when ${feature.name} is added`, async () => {
       await newFormPage.addFeature(feature);
-    });
-
-    test(`Feature: ${feature.name} appears under Features tab`, async () => {
       await qaDrawer.goToQADrawer();
-      const isInList = await qaDrawer.checkDrawerList(feature.name!, "feature");
-      expect(isInList).toBeTruthy();
+      await qaDrawer.switchToTab("feature");
+      await expect(qaDrawer.getCardByTitle(feature.name!)).toBeVisible();
     });
   }
 
   for (const missingTitle of featuresMissingTitle) {
-    test(`${missingTitle.id} - Validation error shown when title is empty`, async () => {
-      await qaDrawer.goToQADrawer();
+    test(`Should show a validation error when title is empty [${missingTitle.id}]`, async () => {
       await newFormPage.addFeature(missingTitle);
-      expect(await newFormPage.checkValidationError("title")).toBeTruthy();
+      await expect(newFormPage.getValidationBannerByTitle("title")).toBeVisible();
     });
   }
 });

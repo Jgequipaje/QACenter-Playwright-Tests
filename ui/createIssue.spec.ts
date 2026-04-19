@@ -11,38 +11,33 @@ test.describe("@CreateFunctions @AddIssue Create Issue", () => {
   let qaDrawer: ReturnType<POManager["getQADrawerPage"]>;
   let newFormPage: ReturnType<POManager["getNewFormPage"]>;
 
-  test.beforeEach(({ page }) => {
+  test.beforeEach(async ({ page }) => {
     poManager = new POManager(page);
     qaDrawer = poManager.getQADrawerPage();
     newFormPage = poManager.getNewFormPage();
+    await qaDrawer.goToQADrawer();
   });
 
   for (const issue of issues) {
-    test(`Can Add ${issue.id}`, async () => {
-      await qaDrawer.goToQADrawer();
+    test(`Should appear under Issues tab when ${issue.title} is added`, async () => {
       await newFormPage.addIssue(issue);
-    });
-
-    test(`${issue.id} appears in list after creation`, async () => {
       await qaDrawer.goToQADrawer();
-      const isInList = await qaDrawer.checkDrawerList(issue.title!, "issue");
-      expect(isInList).toBeTruthy();
+      await qaDrawer.switchToTab("issue");
+      await expect(qaDrawer.getCardByTitle(issue.title!)).toBeVisible();
     });
   }
 
   for (const missingTitle of issuesMissingTitle) {
-    test(`Validation error shown when title of ${missingTitle.id} is empty`, async () => {
-      await qaDrawer.goToQADrawer();
+    test(`Should show a validation error when title is empty [${missingTitle.id}]`, async () => {
       await newFormPage.addIssue(missingTitle);
-      expect(await newFormPage.checkValidationError("title")).toBeTruthy();
+      await expect(newFormPage.getValidationBannerByTitle("title")).toBeVisible();
     });
   }
 
   for (const missingDescription of issuesMissingDescription) {
-    test(`Validation error shown when description of ${missingDescription.id} is empty`, async () => {
-      await qaDrawer.goToQADrawer();
+    test(`Should show a validation error when description is empty [${missingDescription.id}]`, async () => {
       await newFormPage.addIssue(missingDescription);
-      expect(await newFormPage.checkValidationError("description"));
+      await expect(newFormPage.getValidationBannerByTitle("description")).toBeVisible();
     });
   }
 });

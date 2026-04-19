@@ -1,3 +1,5 @@
+import { IssueTestData } from "./issuesTestData";
+
 export interface FeatureTestData {
   id: string;
   name?: string;
@@ -81,3 +83,5 @@ export const featuresMissingTitle: FeatureTestData[] = [
     acceptanceCriteria: "- Given... When... Then...",
   },
 ];
+
+

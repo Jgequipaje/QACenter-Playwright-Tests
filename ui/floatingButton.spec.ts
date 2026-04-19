@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import POManager from "../pageobjects/POManager";
 
 test.describe("@QAFloatingButton Floating Button", () => {
-  test("QA Button and Neko are Visible", async ({ page, request }) => {
+  test("Should Show QA Button and Neko when Servers are running", async ({ page, request }) => {
     const poManager = new POManager(page, request);
     const qaCenterButton = poManager.getQAFloatingButtonPage();
     await qaCenterButton.goToDevServer();

@@ -9,11 +9,12 @@ export class QADrawerPage {
   cardTitle: Locator;
   category: Locator;
   closeButton: Locator;
+  card: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.qaCenter = page.locator('button[title="QA Center"]');
-    this.issuesTab = page.getByTestId("qa-tab-manual");
+    this.issuesTab = page.getByTestId("qa-tab-issue");
     this.featureTab = page.getByTestId("qa-tab-feature");
     this.notesTab = page.getByTestId("qa-tab-note");
     this.cardTitle = page
@@ -25,15 +26,15 @@ export class QADrawerPage {
       .locator("[data-testid^='issue-card-origin']")
       .first();
     this.closeButton = page.getByTestId("qa-drawer-close");
+    this.card = page.locator('button[data-testid^="issue-card"]');
   }
 
   async goToQADrawer(): Promise<void> {
-    await this.page.goto("http://localhost:5173/");
+    await this.page.goto("/");
     await this.qaCenter.click();
   }
 
-  async checkDrawerList(title: string, category: string): Promise<boolean> {
-    const normalizedTitle = title.toLowerCase().trim();
+  async switchToTab(category: "issue" | "feature" | "note"): Promise<void> {
     const normalizedCategory = category.toLowerCase().trim();
 
     switch (normalizedCategory) {
@@ -49,20 +50,34 @@ export class QADrawerPage {
       default:
         throw new Error("Invalid category");
     }
+  }
 
-    const actualTitle = (await this.cardTitle.textContent())?.trim().toLowerCase() ?? "";
-    const actualCategory = (await this.category.textContent())?.trim().toLowerCase() ?? "";
+  getCardByTitle(title: string): Locator {
+    return this.card.filter({
+      has: this.page.locator('div[data-testid^="issue-card-title"]', { hasText: title }),
+    });
+  }
 
-    const actualTitleFormatted = actualTitle ?? "";
-    const actualCategoryFormatted = actualCategory.split(" ")[1] ?? "";
+  getItemStatus(
+    title: string,
+    category: "issue" | "note" | "feature",
+    status: "open" | "in_progress" | "ready_for_qa" | "verified" | "closed"
+  ): Locator {
+    const normalizedStatus = status.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
-    console.log(actualTitleFormatted);
-    console.log(normalizedTitle);
-    console.log(actualCategoryFormatted);
-    console.log(normalizedCategory);
-
-    return (
-      normalizedTitle === actualTitleFormatted && normalizedCategory === actualCategoryFormatted
-    );
+    return this.card
+      .filter({
+        has: this.page.locator('div[data-testid^="issue-card-title"]', { hasText: title }),
+      })
+      .filter({
+        has: this.page.locator("span[data-testid^='issue-card-origin']", {
+          hasText: category,
+        }),
+      })
+      .filter({
+        has: this.page.locator("span[data-testid^='issue-card-status']", {
+          hasText: normalizedStatus,
+        }),
+      });
   }
 }

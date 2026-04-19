@@ -146,10 +146,7 @@ export default class NewFormPage {
     }
   }
 
-  async checkValidationError(check: string): Promise<boolean> {
-    const messageContent =
-      (await this.errorBanner.textContent())?.split(" ")[0]?.trim().toLowerCase() ?? "";
-    console.log(messageContent);
-    return messageContent === check.trim().toLowerCase();
+  getValidationBannerByTitle(title: "title" | "description" | "content"): Locator {
+    return this.errorBanner.filter({ hasText: title.trim().toLowerCase() });
   }
 }

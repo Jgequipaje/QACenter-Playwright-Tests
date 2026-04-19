@@ -7,30 +7,26 @@ test.describe("@CreateFunctions @AddNote Create Note", () => {
   let qaDrawer: ReturnType<POManager["getQADrawerPage"]>;
   let newFormPage: ReturnType<POManager["getNewFormPage"]>;
 
-  test.beforeEach(({ page }) => {
+  test.beforeEach(async ({ page }) => {
     poManager = new POManager(page);
     qaDrawer = poManager.getQADrawerPage();
     newFormPage = poManager.getNewFormPage();
+    await qaDrawer.goToQADrawer();
   });
 
   for (const note of notes) {
-    test(`Can Add ${note.id}`, async () => {
-      await qaDrawer.goToQADrawer();
+    test(`Should appear under Notes tab when ${note.title} is added`, async () => {
       await newFormPage.addNote(note);
-    });
-
-    test(`${note.id} appears under Notes tab`, async () => {
       await qaDrawer.goToQADrawer();
-      const isInList = await qaDrawer.checkDrawerList(note.title, "note");
-      expect(isInList).toBeTruthy();
+      await qaDrawer.switchToTab("note");
+      await expect(qaDrawer.getCardByTitle(note.title!)).toBeVisible();
     });
   }
 
   for (const missingContent of notesMissingContent) {
-    test(`Validation error shown when content of ${missingContent.id} is empty`, async () => {
-      await qaDrawer.goToQADrawer();
+    test(`Should show a validation error when content is empty [${missingContent.id}]`, async () => {
       await newFormPage.addNote(missingContent);
-      expect(await newFormPage.checkValidationError("content")).toBeTruthy();
+      await expect(newFormPage.getValidationBannerByTitle("content")).toBeVisible();
     });
   }
 });

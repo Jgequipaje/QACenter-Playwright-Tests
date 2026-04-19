@@ -17,7 +17,7 @@ export class QAFloatingButtonPage {
   }
 
   async goToDevServer(): Promise<void> {
-    await this.page.goto("http://localhost:5173/");
+    await this.page.goto("/");
   }
 
   async getResponseNeko(): Promise<APIResponse> {

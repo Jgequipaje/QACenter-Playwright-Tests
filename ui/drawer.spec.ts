@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import POManager from "../pageobjects/POManager";
 
 test.describe("@Drawer Drawer", () => {
-  test("Drawer opens and displays issue list", async ({ page }) => {});
+  test("Should open Drawer and displays issue list", async ({ page }) => {});
 
   test("Search filters issues by title", async ({ page }) => {});
 
